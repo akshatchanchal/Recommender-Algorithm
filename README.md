@@ -100,3 +100,9 @@ we recommend journals
 with lower rewards but with a high acceptance rate. Thus,
 we recommend all journals whose quality exceeds the pro-
 ductivity of the authors
+
+    ### Reference:
+    - A Profile-Boosted Research Analytics Framework to Recommend Journals for Manuscripts  
+    -Thushari Silva and Jian Ma, Chen Yang and Haidan Liang
+    - A Robust Model for Paper-Reviewer Assignment  
+    -Xiang Liu, Torsten Suel, Nasir Memon
