@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 31 14:49:43 2019
+
+@author: unknown_to_mankind
+"""
+
+# -- coding: utf-8 --
+import pandas as pd
+
+def gen():
+    with open('xaa', 'r',  encoding="utf8") as f:
+        datum={}
+        row=0
+        readFile = f.readlines()
+        for line in readFile:
+            
+            if '#index' in line:
+                if bool(datum):
+                    
+                    try:
+                        for i in range(len(datum['author'])):
+                            
+                            datum_to_save = datum.copy()
+                            datum_to_save['author']=datum['author'][i]
+                            datum_to_save['affiliation']=datum['affiliation'][i]
+                            yield datum_to_save
+                            row+=1
+                    except IndexError as e:
+                        continue
+                    
+                    datum={}
+
+                datum['id'] = line[7:].rstrip()
+                
+            elif '#*' in line:
+                datum['title'] = line[3:].rstrip()
+            elif '#@' in line:
+                datum['author'] = line[3:].rstrip().rsplit(";")
+            elif '#o' in line:
+                datum['affiliation'] = line[3:].rstrip().rsplit(";")
+            elif '#t' in line:
+                datum['year'] = line[3:].rstrip()
+            elif '#c' in line:
+                datum['venue'] = line[3:].rstrip()
+            elif '#%' in line:
+                datum['ref_id']=line[3:].rstrip()
+            elif '#!' in line:
+                datum['abstract'] = line[3:].rstrip()
+
+
+data = pd.DataFrame(gen(), columns =('id', 'title', 'author', 'affiliation', 'year', 
+                                  'venue', 'ref_id', 'abstract'))
+data['year'] =pd.to_numeric(data['year'], errors = 'coerce').fillna(0)
+data=data[data.year<=2005]
+data=data[data.year>=1996]
+#z.to_csv("AMiner.csv",encoding='utf-8')
+#sorting alphabetically
+data=data.sort_values('author')
+nips=pd.read_table('reviewers.txt',delim_whitespace=False,names=('S.No','Reviewer'))
+nips=nips.iloc[:,-1]
+data=data[data['author'].isin(nips)] 
+#Aminer 2
+def gen():
+    with open('Authoraa', 'r',  encoding="utf8") as f:
+        datum={}
+        row=0
+        readFile = f.readlines()
+        for line in readFile:
+            
+            if '#index' in line:
+                if bool(datum):
+                    
+                    try:
+                        for i in range(len(datum['author'])):
+                            
+                            datum_to_save = datum.copy()
+                            datum_to_save['author']=datum['author'][i]
+                            datum_to_save['affiliation']=datum['affiliation'][i]
+                            datum_to_save['interests']=datum['interests'][i]
+                            yield datum_to_save
+                            row+=1
+                    except IndexError as e:
+                        continue
+                    
+                    datum={}
+                datum['id'] = line[7:].rstrip()
+                
+            elif '#n' in line:
+                datum['author'] = line[3:].rstrip().rsplit(";")
+            elif '#a' in line:
+                datum['affiliation'] = line[3:].rstrip().rsplit(";")
+            elif '#pc' in line:
+                datum['count'] = line[4:].rstrip()
+            elif '#cn' in line:
+                datum['citations']= line[4:].rstrip()
+            elif '#hi' in line:
+                datum['H-index'] = line[4:].rstrip()
+            elif '#pi' in line:
+                datum['P-index'] = line[4:].rstrip()
+            elif '#upi' in line:
+                datum['UP-index'] = line[5:].rstrip()
+            elif '#t' in line:
+                datum['interests'] = line[3:].rstrip().rsplit(";")
+
+
+data2 = pd.DataFrame(gen(), columns =('id', 'author', 'affiliation', 'count', 'citations', 'H-index', 'P-index', 'UP-index','interests'))
+
+data2=data2[data2['author'].isin(nips)] 
+data=data.groupby('author').agg(lambda x: x.tolist())
+data2=data2.groupby('author').agg(lambda x: x.tolist())
+final=data.merge(data2,left_index=True,right_index=True)
