@@ -33,12 +33,11 @@ The data of 364 reviewers was taken from NIPS dataset.
     • integrating three different information sources: subjective, objective, and social information. 
     • Specifically, subjective information refers to the information that is found in a manuscript or a journal (e.g., keywords presented in a manuscript’s ,keyword section). 
     • The information that is derivable from the title and abstract of a manuscript is considered objective information.
-    • What the authors who publish articles in a journal and what their peers say about a journal is referred to as the social information of a journal.
+    • What the authors who publish articles in a journal and what their peers say about a journal is referred to as the social information of a journal.  
 
-We get topic similarity from subjective and objective information.
 #### Processes:
-- First all the abstracts are extracted along with the publication year and authors. The relevance would also depend on the timeline of publication. The most recent published paper would be more relevant in comparision to the one published 10 years ago.  
-- First LDA model is trained on the whole paper and then we get LDA vector of every paper. 
+-  The abstract of papers were extracted along with the publication year and authors. The relevance would also depend on the timeline of publication. The most recent published paper would be more relevant in comparision to the one published 10 years ago.  
+- LDA model was trained on the whole paper and LDA vector was generated for every paper.  
 - Before Applying LDA following operations are performed on the data.  
 
 > #### Data Pre-processing  
@@ -64,11 +63,18 @@ _Topic modeling is a type of statistical modeling for discovering the “topics�
 
        
        2. Connectivity index:Identifying Widely Accepted Journals
-       • To identify widely accepted journals by similar researchers, a collaboration network analysis was performed and the connectivity index was calculated. The connectivity index measures the strength of the connection between researchers, and it is used to identify potential journals in which similar researchers (e.g., co-authors) have published.
-       • A node in the collaboration network represents a researcher. An edge between two nodes is constructed when one researcher has co-authored with the other researcher. We first assign the weight w ij for a pair of vertices, which is defined as the frequency of collaboration between two researchers. High weight implies more connectivity between the two researchers. We first use a graph clustering method to identify groups of similar researchers (i.e., communities) in the collaboration network. Hierarchical clustering, which is a traditional method for detecting community structure, is followed to derive an optimal community structure.
+       • To identify widely accepted journals by similar researchers, a collaboration network analysis was performed   
+       and the connectivity index was calculated. The connectivity index measures the strength of the connection between   
+       researchers, and it is used to identify potential journals in which similar researchers (e.g., co-authors) have published.
+       • A node in the collaboration network represents a researcher. An edge between two nodes is constructed when one  
+       researcher has co-authored with the other researcher. We first assign the weight w ij for a pair of vertices, which is defined as   
+       the frequency of collaboration between two researchers. High weight implies more connectivity between the two researchers. We first use  
+       a graph clustering method to identify groups of similar researchers (i.e., communities) in the collaboration network.  
+       Hierarchical clustering, which is a traditional method for detecting community structure, is followed to derive an optimal community structure.
        • Graph clustering by Louvain was implemented to detect communities. Networkx best partition was used.
-       • Communities are groups of nodes within a network that are more densely connected to one another than to other nodes.Modularity is a metric that quantifies the quality . Louvain uses heirarchichal clustering  approach that maximises modularity to identify optimal partitioning of nodes.
-       Q k = ∑ i = 1 ( w II − a I 2 ); Wll-same community; a ldiff community
+       • Communities are groups of nodes within a network that are more densely connected to one another than to other nodes.  
+       Modularity is a metric that quantifies the quality . Louvain uses heirarchichal clustering  approach that maximises modularity to identify optimal   partitioning of nodes.
+       Q k = ∑ i = 1 ( w II − a I2 ); Wll-same community; aI2-diff community
        Cij=0.05 if they are in diff community else 1.  
       
 
