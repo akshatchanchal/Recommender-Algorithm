@@ -25,8 +25,8 @@ are constructed to measure the strength of each dimension of the Recommender Sys
     • AMiner is a novel online academic search and mining system, and it aims to provide a systematic modeling approach to help researchers and scientists gain a deeper understanding of the large and heterogeneous networks formed by authors, papers, conferences, journals and organizations. The system is subsequently able to extract researchers' profiles automatically from the Web and integrates them with published papers by a way of a process that first performs name disambiguation.  
     • Neural Information Processing Systems (NIPS) is one of the top machine learning conferences in the world. It covers topics ranging from deep learning and computer vision to cognitive science and reinforcement learning.This dataset includes the title, authors, abstracts, and extracted text for all NIPS papers to date (ranging from the first 1987 conference to the current 2016 conference)  
     
-I segregated the papers published in the period of 10 years from 1996-2005 in AMiner and collected various informations and made a dataframe.  
-I took 364 reviewers' information from nips.  
+The papers published in the period of 10 years from 1996-2005 were taken from AMiner Dataset. A dataframe was made with relevant fields.     
+The data of 364 reviewers was taken from NIPS dataset.  
 
 ### Synopsis & Detailed Process:
     1. Profiling of Journals and Manuscripts
